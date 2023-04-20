@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "id": "bekmod",
+  "version": "${version}",
+
+  "name": "goofy_mod",
+  "description": "it is all just for fun",
+  "authors": [
+    "Me!"
+  ],
+  "contact": {
+    "homepage": "https://fabricmc.net/",
+    "sources": "https://github.com/FabricMC/fabric-example-mod"
+  },
+
+  "license": "CC0-1.0",
+  "icon": "assets/modid/icon.png",
+
+  "environment": "*",
+  "entrypoints": {
+    "client": [
+      "net.bekmod.spoof.ClientMod"
+    ]
+  },
+  "mixins": [
+    "bekmod.mixins.json"
+  ],
+
+  "depends": {
+    "fabricloader": ">=0.14.17",
+    "fabric-api": "*",
+    "minecraft": "~1.19.4",
+    "java": ">=17"
+  },
+  "suggests": {
+    "another-mod": "*"
+  }
+}
