@@ -26,8 +26,8 @@ public class TargetModel extends WPlainPanel {
         BackgroundPainter backgroundPainter = BackgroundPainter.createColorful(10);
         this.setBackgroundPainter(backgroundPainter);
         removeButton = new WButton(Text.of("-"));
-        label = new WLabel(Text.empty());
-        label2 = new WLabel(Text.empty());
+        label = new WLabel(Text.of(""));
+        label2 = new WLabel(Text.of(""));
 
         this.add(label, 0, 0, 85, 30);
         this.add(label2, 0, 0, 85, 30);

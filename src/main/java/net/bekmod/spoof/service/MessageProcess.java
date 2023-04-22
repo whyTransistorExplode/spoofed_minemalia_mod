@@ -2,14 +2,11 @@ package net.bekmod.spoof.service;
 
 import net.bekmod.spoof.MainMod;
 import net.bekmod.spoof.entity.Envoy;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.item.CompassAnglePredicateProvider;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.text.Text;
 import org.jetbrains.annotations.TestOnly;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 
 public class MessageProcess {
 

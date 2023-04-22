@@ -15,7 +15,7 @@ public class ClientConnectionMixin  {
 
 
     @ModifyVariable(at = @At("HEAD"),
-            method = "send(Lnet/minecraft/network/Packet;Lnet/minecraft/network/PacketCallbacks;)V")
+            method = "send(Lnet/minecraft/network/Packet;Lio/netty/util/concurrent/GenericFutureListener;)V")
     public Packet<?> modifyPacket(Packet<?> packet)
     {
         ConnectionPacketOutputListener.ConnectionPacketOutputEvent event =
