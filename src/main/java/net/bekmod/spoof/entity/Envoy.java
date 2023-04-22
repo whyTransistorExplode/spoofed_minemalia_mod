@@ -51,4 +51,9 @@ public class Envoy {
     public boolean isFlag() {
         return flag;
     }
+
+    @Override
+    public String toString() {
+        return "distance =" + proximity + "; coordinates: X =" + coordX + " Z =" + coordZ;
+    }
 }

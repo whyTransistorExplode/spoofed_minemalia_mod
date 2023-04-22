@@ -2,7 +2,7 @@ package net.bekmod.spoof.listener;
 
 import net.bekmod.spoof.event.CancellableEvent;
 import net.bekmod.spoof.event.Listener;
-import net.minecraft.network.packet.Packet;
+import net.minecraft.network.Packet;
 import net.bekmod.spoof.events.PacketOutputListener;
 
 import java.util.ArrayList;

@@ -1,6 +1,7 @@
 package net.bekmod.spoof.gui;
 
 import io.github.cottonmc.cotton.gui.client.LightweightGuiDescription;
+import io.github.cottonmc.cotton.gui.widget.WButton;
 import io.github.cottonmc.cotton.gui.widget.WLabel;
 import io.github.cottonmc.cotton.gui.widget.WListPanel;
 import io.github.cottonmc.cotton.gui.widget.WPlainPanel;
@@ -8,10 +9,12 @@ import net.bekmod.spoof.MainMod;
 import net.bekmod.spoof.entity.Envoy;
 import net.bekmod.spoof.gui.model.TargetModel;
 import net.bekmod.spoof.service.MessageProcess;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.text.Text;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.function.BiConsumer;
 
 public class SimpleGUI extends LightweightGuiDescription {
@@ -19,6 +22,7 @@ public class SimpleGUI extends LightweightGuiDescription {
     private WPlainPanel root;
     private WLabel info;
     private WListPanel<Envoy, TargetModel> targetList;
+    private WButton switchOverlayButton;
 
     private static SimpleGUI instance = null;
 
@@ -29,26 +33,43 @@ public class SimpleGUI extends LightweightGuiDescription {
     }
 
     private SimpleGUI(){
+
         root = new WPlainPanel();
         root.setSize(350, 250);
         info = new WLabel(Text.empty());
         info.setSize(100, 70);
         root.add(info, 5, 5);
         setRootPanel(root);
+
+        switchOverlayButton = new WButton();
+
+        root.add(switchOverlayButton, 120, 5, 80, 50);
+        setEvents();
     }
-    public void refresh(){
+    private void refresh(){
         info.setText(Text.of(MainMod.getInstance().getMessage()));
         root.remove(targetList);
 
+        switchOverlayButton.setLabel(Text.of("switched: " + (MainMod.getInstance().isSwitchOverlay()?"ON":"OFF")));
 
-        BiConsumer<Envoy, TargetModel> consumer = (envoy, targetModel) -> {
-            targetModel.takeEnvoy(envoy);
-        };
-        ArrayList<Envoy> envoys = MainMod.getInstance().getEnvoys();
-        MessageProcess.setVicinity(envoys);
-        targetList = new WListPanel<>(envoys, TargetModel::new, consumer);
-        targetList.setSize(70, 50);
-        root.add(targetList, 5,75);
-        targetList.layout();
+        ArrayList<Envoy> envoys = MainMod.getInstance().getProximitedEnvoys();
+        if(envoys.size() > 0) {
+            BiConsumer<Envoy, TargetModel> consumer = (envoy, targetModel) -> {
+                targetModel.takeEnvoy(envoy);
+            };
+            envoys.sort(Comparator.comparingInt(Envoy::getProximity));
+            targetList = new WListPanel<>(envoys, TargetModel::new, consumer);
+            targetList.setSize(100, 240);
+            root.add(targetList, 5, 75);
+            targetList.layout();
+        }
     }
+
+    private void setEvents(){
+        switchOverlayButton.setOnClick(() ->{
+            MainMod.getInstance().setSwitchOverlay();
+            refresh();
+        });
+    }
+
 }

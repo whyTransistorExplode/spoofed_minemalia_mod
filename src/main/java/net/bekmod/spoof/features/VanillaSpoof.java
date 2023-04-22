@@ -8,12 +8,13 @@
 package net.bekmod.spoof.features;
 
 import io.netty.buffer.Unpooled;
+import net.bekmod.spoof.listener.ConnectionPacketOutputListener;
 import net.bekmod.spoof.mixin.CustomPayloadC2SPacketAccessor;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.network.packet.c2s.play.CustomPayloadC2SPacket;
+
 //import net.wurstclient.DontBlock;
 //import net.wurstclient.SearchTags;
-import net.bekmod.spoof.listener.ConnectionPacketOutputListener;
 //import net.wurstclient.mixin.CustomPayloadC2SPacketAccessor;
 //import net.wurstclient.other_feature.OtherFeature;
 //import net.wurstclient.settings.CheckboxSetting;

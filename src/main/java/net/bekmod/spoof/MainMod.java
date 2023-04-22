@@ -2,6 +2,7 @@ package net.bekmod.spoof;
 
 import net.bekmod.spoof.entity.Envoy;
 import net.bekmod.spoof.service.MessageProcess;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 
@@ -15,6 +16,7 @@ public class MainMod {
     private String chatMessage;
     private ArrayList<Envoy> envoys;
     private Thread thread;
+    private boolean switchOverlay;
 
     public static MainMod getInstance() {
         if (instance == null) instance = new MainMod();
@@ -38,6 +40,11 @@ public class MainMod {
     public ArrayList<Envoy> getEnvoys(){
         return (ArrayList<Envoy>) envoys.clone();
     }
+    public ArrayList<Envoy> getProximitedEnvoys(){
+        if(MinecraftClient.getInstance().player != null)
+            MessageProcess.setVicinity(envoys, MinecraftClient.getInstance().player);
+        return (ArrayList<Envoy>) envoys.clone();
+    }
 
     public void clearEnvoy(){
         envoys.clear();
@@ -49,5 +56,13 @@ public class MainMod {
     public void threadedProcessMessage(Text message){
         if (thread == null) thread = new Thread(() -> MessageProcess.processMessage(message));
         thread.start();
+    }
+
+    public boolean isSwitchOverlay() {
+        return switchOverlay;
+    }
+
+    public void setSwitchOverlay() {
+        this.switchOverlay = !this.switchOverlay;
     }
 }
