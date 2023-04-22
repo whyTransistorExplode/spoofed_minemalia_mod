@@ -37,7 +37,7 @@ public class SimpleGUI extends LightweightGuiDescription {
         root = new WPlainPanel();
         root.setSize(350, 250);
         info = new WLabel(Text.of(""));
-        info.setSize(100, 70);
+        info.setSize(200, 70);
         root.add(info, 5, 5);
         setRootPanel(root);
 

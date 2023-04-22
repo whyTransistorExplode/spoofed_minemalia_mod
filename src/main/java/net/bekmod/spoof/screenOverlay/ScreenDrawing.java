@@ -43,7 +43,7 @@ public class ScreenDrawing {
         Screen.drawCenteredText(matrices, MinecraftClient.getInstance().textRenderer,
                 text,   35 + locationX, 5 + locationY, 0xFF_FFFFFF);
         Screen.drawCenteredText(matrices, MinecraftClient.getInstance().textRenderer,
-                text2,   35 + locationX, 35 + locationY, 0xFF_FFFFFF);
+                text2,   35 + locationX, 20 + locationY, 0xFF_FFFFFF);
 
     }
 }

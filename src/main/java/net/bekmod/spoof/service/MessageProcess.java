@@ -38,7 +38,7 @@ public class MessageProcess {
 
 
     private static void checkForEnvoy(Text message){
-        MainMod.getInstance().setMessage(message.getString());
+//        MainMod.getInstance().setMessage(message.getString());
 
         if(message.getString().startsWith(ENVOY_MESSAGE_PREF1) && message.getString().contains(ENVOY_MESSAGE_PREF2)) {
             String str = message.getString().substring( ENVOY_MESSAGE_PREF2.length() + message.getString().indexOf(ENVOY_MESSAGE_PREF2)
