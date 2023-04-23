@@ -21,28 +21,30 @@ public class ScreenDrawing {
         ClientPlayerEntity player = MinecraftClient.getInstance().player;
 
 
-        Text text;//.setStyle(Style.EMPTY.withExclusiveFormatting(Formatting.GRAY));
-        Text text2;
+        String text;//.setStyle(Style.EMPTY.withExclusiveFormatting(Formatting.GRAY));
+        String text2;
         if (world != null) {
             BlockPos spawnPos = world.getSpawnPos();
 
-            text = Text.of("spawn location: " + spawnPos.getX() + "  " + spawnPos.getY() + "  " + spawnPos.getZ());
+            text = "spawn location: " + spawnPos.getX() + "  " + spawnPos.getY() + "  " + spawnPos.getZ();
             int distance = (int)(Math.sqrt(spawnPos.getX()*spawnPos.getX() + spawnPos.getZ()*spawnPos.getZ()));
             if (player != null) {
-                text2 = Text.of("distance: " + distance + "my horizontal position: " + player.getY());
-            }else text2 = Text.of("");
+                int count = world.getPlayers().size();
+                text2 = "distance: " + distance + "       hp: " + ((int)player.getY()) + "    players: " + count;
+
+            }else text2 = "";
         }else {
-            text = Text.of("spawn location may not have been initialized!");
-            text2 = Text.of("");
+            text = "spawn location may not have been initialized!";
+            text2 = "";
         }
         /*
 			ScreenDrawing.drawString(MainMod.matrices,String.valueOf(MainMod.getDistance()) + "blocks", HorizontalAlignment.LEFT,
 					locationX+ 45, locationY + 10,100,0x101010);
 */
 
-        Screen.drawCenteredText(matrices, MinecraftClient.getInstance().textRenderer,
+        Screen.drawStringWithShadow(matrices, MinecraftClient.getInstance().textRenderer,
                 text,   35 + locationX, 5 + locationY, 0xFF_FFFFFF);
-        Screen.drawCenteredText(matrices, MinecraftClient.getInstance().textRenderer,
+        Screen.drawStringWithShadow(matrices, MinecraftClient.getInstance().textRenderer,
                 text2,   35 + locationX, 20 + locationY, 0xFF_FFFFFF);
 
     }
