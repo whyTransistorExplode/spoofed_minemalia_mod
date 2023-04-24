@@ -27,10 +27,16 @@ public class ScreenDrawing {
             BlockPos spawnPos = world.getSpawnPos();
 
             text = "spawn location: " + spawnPos.getX() + "  " + spawnPos.getY() + "  " + spawnPos.getZ();
-            int distance = (int)(Math.sqrt(spawnPos.getX()*spawnPos.getX() + spawnPos.getZ()*spawnPos.getZ()));
+
+
             if (player != null) {
+                double aE = Math.abs(player.getX() - spawnPos.getX());
+                double bE = Math.abs(player.getZ() - spawnPos.getZ());
+
+                int distance = (int)(Math.sqrt(aE*aE + bE*bE));
+
                 int count = world.getPlayers().size();
-                text2 = "distance: " + distance + "       hp: " + ((int)player.getY()) + "    players: " + count;
+                text2 = "distance: " + distance + "       Y:" + ((int)player.getY()) + "    players: " + count;
 
             }else text2 = "";
         }else {

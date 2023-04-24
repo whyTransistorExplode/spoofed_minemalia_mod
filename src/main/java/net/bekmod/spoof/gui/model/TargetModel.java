@@ -30,7 +30,7 @@ public class TargetModel extends WPlainPanel {
         label2 = new WLabel(Text.of(""));
 
         this.add(label, 0, 0, 85, 30);
-        this.add(label2, 0, 0, 85, 30);
+        this.add(label2, 0, 30, 85, 30);
         this.add(removeButton, 85, 0, 15, 60);
 
     }

@@ -53,10 +53,10 @@ public class MainMod {
         envoys.add(envoy);
     }
 
-    public void threadedProcessMessage(Text message){
-        if (thread == null) thread = new Thread(() -> MessageProcess.processMessage(message));
-        thread.start();
-    }
+//    public void threadedProcessMessage(Text message){
+//        if (thread == null) thread = new Thread(() -> MessageProcess.processMessage(message));
+//        thread.start();
+//    }
 
     public boolean isSwitchOverlay() {
         return switchOverlay;

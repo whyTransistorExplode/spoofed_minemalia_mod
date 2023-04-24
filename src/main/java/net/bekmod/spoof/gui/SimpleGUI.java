@@ -59,8 +59,8 @@ public class SimpleGUI extends LightweightGuiDescription {
             };
             envoys.sort(Comparator.comparingInt(Envoy::getProximity));
             targetList = new WListPanel<>(envoys, TargetModel::new, consumer);
-            targetList.setSize(100, 240);
-            root.add(targetList, 5, 75);
+
+            root.add(targetList, 5, 75, 100, 240);
             targetList.layout();
         }
     }
