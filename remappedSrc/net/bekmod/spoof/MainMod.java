@@ -17,8 +17,6 @@ public class MainMod {
     private ArrayList<Envoy> envoys;
     private Thread thread;
     private boolean switchOverlay;
-    private boolean isBuffedReaction;
-    private String buffedAnswer;
 
     public static MainMod getInstance() {
         if (instance == null) instance = new MainMod();
@@ -66,25 +64,5 @@ public class MainMod {
 
     public void setSwitchOverlay() {
         this.switchOverlay = !this.switchOverlay;
-    }
-
-    public void performReaction(){
-        if (!isBuffedReaction) return;
-
-        isBuffedReaction = false;
-        if (MinecraftClient.getInstance().player != null) {
-            MinecraftClient.getInstance().player.sendChatMessage(buffedAnswer);
-        }
-    }
-    public boolean isBuffedReaction(){
-        return  isBuffedReaction;
-    }
-    public String getBuffedAnswer(){
-        return buffedAnswer;
-    }
-
-    public void setBuffedAnswer(String buffedAnswer) {
-        this.buffedAnswer = buffedAnswer;
-        isBuffedReaction = true;
     }
 }

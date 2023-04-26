@@ -26,7 +26,6 @@ public class ClientMod implements ClientModInitializer {
     private static KeyBinding pVault;
     private static KeyBinding cBack;
     private static KeyBinding cSpawn;
-    private static KeyBinding autoPerformReaction;
 
     @Override
     public void onInitializeClient() {
@@ -34,10 +33,6 @@ public class ClientMod implements ClientModInitializer {
         LOGGER.info("Hello cracked world!");
         MainMod.loadMainMod();
 
-        setKeyBinds();
-    }
-
-    public void setKeyBinds(){
 
         openGUI = KeyBindingHelper.registerKeyBinding(
                 new KeyBinding("key.bekmod.opengui",
@@ -48,29 +43,22 @@ public class ClientMod implements ClientModInitializer {
                 new KeyBinding("key.bekmod.homespawn",
                         InputUtil.Type.KEYSYM,
                         GLFW.GLFW_KEY_H,
-                        "key.category.key"));
+                        "key.category.gui"));
         pVault = KeyBindingHelper.registerKeyBinding(
                 new KeyBinding("key.bekmod.pvault",
                         InputUtil.Type.KEYSYM,
                         GLFW.GLFW_KEY_V,
-                        "key.category.key"));
+                        "key.category.gui"));
         cBack = KeyBindingHelper.registerKeyBinding(
                 new KeyBinding("key.bekmod.cback",
                         InputUtil.Type.KEYSYM,
                         GLFW.GLFW_KEY_P,
-                        "key.category.key"));
+                        "key.category.gui"));
         cSpawn = KeyBindingHelper.registerKeyBinding(
                 new KeyBinding("key.bekmod.cspawn",
                         InputUtil.Type.KEYSYM,
                         GLFW.GLFW_KEY_O,
-                        "key.category.key"));
-        autoPerformReaction = KeyBindingHelper.registerKeyBinding(
-                new KeyBinding("key.bekmod.reactionbutton",
-                        InputUtil.Type.KEYSYM,
-                        GLFW.GLFW_KEY_KP_0,
-                        "key.category.key"));
-
-        /* Client tick events */
+                        "key.category.gui"));
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             while (openGUI.wasPressed()) {
                 if (client.player != null)
@@ -84,13 +72,11 @@ public class ClientMod implements ClientModInitializer {
                 if(client.player != null)
                     client.player.sendChatMessage("/spawn");
             }
-            while(autoPerformReaction.wasPressed()){
-                if(client.player != null)
-                    MainMod.getInstance().performReaction();
-            }
         });
+        setKeyBinds();
+    }
 
-        /* custom registered key events */
+    public void setKeyBinds(){
         KeyEventManager.getInstance().registerEvent(
                 (keyEvent) ->{
                     if(keyEvent.getKeycode() >= GLFW.GLFW_KEY_1 && keyEvent.getKeycode() <= GLFW.GLFW_KEY_9){
@@ -106,5 +92,4 @@ public class ClientMod implements ClientModInitializer {
                 }
         );
     }
-
 }

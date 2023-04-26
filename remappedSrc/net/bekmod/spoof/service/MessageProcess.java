@@ -2,7 +2,6 @@ package net.bekmod.spoof.service;
 
 import net.bekmod.spoof.MainMod;
 import net.bekmod.spoof.entity.Envoy;
-import net.bekmod.spoof.entity.solutions.Result;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.text.Text;
 import org.jetbrains.annotations.TestOnly;
@@ -14,12 +13,6 @@ public class MessageProcess {
     private static final String ENVOY_MESSAGE_PREF1 = "[Envoys]";
     private static final String ENVOY_MESSAGE_PREF2 = "Envoy Landed at ";
     private static final String ENVOY_MESSAGE_PREF3 = " in world";
-    private static final String REACTIONS_MESSAGE = "Reactions";
-    private static final String REACTIONS_MESSAGE_MATH_1 = "Solve ";
-    private static final String REACTIONS_MESSAGE_MATH_2 = " first to get a reward!";
-
-
-
 
 
     public static void setVicinity(ArrayList<Envoy> envoys, ClientPlayerEntity player){
@@ -40,10 +33,9 @@ public class MessageProcess {
     }
 
     public static void processMessage(Text message){
-       /* checking became unnecessary since compass spawn location shows the required coordinates all the time */
-        // checkForEnvoy(message);
-        checkForReactions(message.getString());
+        checkForEnvoy(message);
     }
+
 
     private static void checkForEnvoy(Text message){
 //        MainMod.getInstance().setMessage(message.getString());
@@ -63,20 +55,8 @@ public class MessageProcess {
 
     }
 
-    private static void checkForReactions(String text){
-        if(!text.contains(REACTIONS_MESSAGE)) return;
+    private void checkForMaths(){
 
-        int index = text.indexOf(REACTIONS_MESSAGE_MATH_1);
-        /* math reaction*/
-        if(index != -1){
-            mathCalculate(text.substring(index + REACTIONS_MESSAGE.length(), text.indexOf(REACTIONS_MESSAGE_MATH_2)));
-        }
-
-    }
-
-    private static void mathCalculate(String text){
-        Result result = MathHelper.calculateText(text);
-        MainMod.getInstance().setBuffedAnswer(String.valueOf(result.getNumber().getNumber()));
     }
 
 

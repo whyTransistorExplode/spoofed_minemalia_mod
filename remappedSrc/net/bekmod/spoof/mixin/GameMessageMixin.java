@@ -17,6 +17,5 @@ public class GameMessageMixin {
             cancellable = false)
     public void onGameMessage(Text chatText, int chatLineId, CallbackInfo ci){
 //        MessageProcess.processMessage(chatText);
-//        MainMod.getInstance().threadedProcessMessage(chatText);
     }
 }
