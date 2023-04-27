@@ -43,12 +43,12 @@ public class ScreenDrawing {
                 int distance = (int)(Math.sqrt(aE*aE + bE*bE));
 
                 int count = world.getPlayers().size();
-                text2 = "distance: " + distance + "       Y:" + ((int)player.getY());
-                text3 = "players: " + count;
+                text2 = "distance: " + distance + "  Y:" + ((int)player.getY());
+                text3 = "players: " + (count - 1);
                 if (count > 2)
-                    color = 0xFF_F5D905;
-                else if( count > 1)
                     color = 0xFF_FC8C03;
+                else if( count > 1)
+                    color = 0xFF_F5D905;
 
                 Screen.drawStringWithShadow(matrices, MinecraftClient.getInstance().textRenderer,
                         text3,   120 + locationX, 16 + locationY, color);
