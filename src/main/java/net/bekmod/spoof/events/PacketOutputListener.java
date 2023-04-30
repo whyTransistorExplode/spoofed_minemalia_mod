@@ -9,7 +9,7 @@ package net.bekmod.spoof.events;
 
 import net.bekmod.spoof.event.CancellableEvent;
 import net.bekmod.spoof.event.Listener;
-import net.minecraft.network.Packet;
+import net.minecraft.network.packet.Packet;
 
 import java.util.ArrayList;
 

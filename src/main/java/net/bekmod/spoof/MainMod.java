@@ -18,6 +18,7 @@ public class MainMod {
     private Thread thread;
     private boolean switchOverlay;
     private boolean isBuffedReaction;
+    private boolean isMessageProcessorOn = true;
     private String buffedAnswer;
 
     public static MainMod getInstance() {
@@ -73,12 +74,14 @@ public class MainMod {
 
         isBuffedReaction = false;
         if (MinecraftClient.getInstance().player != null) {
-            MinecraftClient.getInstance().player.sendChatMessage(buffedAnswer);
+            MinecraftClient.getInstance().player.sendMessage(Text.of(buffedAnswer));
         }
     }
     public boolean isBuffedReaction(){
         return  isBuffedReaction;
     }
+
+
     public String getBuffedAnswer(){
         return buffedAnswer;
     }
@@ -86,5 +89,13 @@ public class MainMod {
     public void setBuffedAnswer(String buffedAnswer) {
         this.buffedAnswer = buffedAnswer;
         isBuffedReaction = true;
+    }
+
+    public boolean isMessageProcessorOn() {
+        return isMessageProcessorOn;
+    }
+
+    public void switchMessageProc() {
+        isMessageProcessorOn = !isMessageProcessorOn;
     }
 }

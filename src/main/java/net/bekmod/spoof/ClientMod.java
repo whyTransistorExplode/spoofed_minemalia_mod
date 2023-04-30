@@ -78,11 +78,11 @@ public class ClientMod implements ClientModInitializer {
             }
             while (cBack.wasPressed()){
                 if(client.player != null)
-                    client.player.sendChatMessage("/back");
+                    client.player.sendMessage(Text.of("/back"));
             }
             while (cSpawn.wasPressed()){
                 if(client.player != null)
-                    client.player.sendChatMessage("/spawn");
+                    client.player.sendMessage(Text.of("/spawn"));
             }
             while(autoPerformReaction.wasPressed()){
                 if(client.player != null)
@@ -96,11 +96,11 @@ public class ClientMod implements ClientModInitializer {
                     if(keyEvent.getKeycode() >= GLFW.GLFW_KEY_1 && keyEvent.getKeycode() <= GLFW.GLFW_KEY_9){
                         if(homeSpawn.isPressed()){
                             keyEvent.getCi().cancel();
-                            MinecraftClient.getInstance().player.sendChatMessage("/home " + (keyEvent.getKeycode() - 48));
+                            MinecraftClient.getInstance().player.sendMessage(Text.of("/home " + (keyEvent.getKeycode() - 48)));
                         }
                         if(pVault.isPressed()){
                             keyEvent.getCi().cancel();
-                            MinecraftClient.getInstance().player.sendChatMessage("/pv " + (keyEvent.getKeycode() - 48));
+                            MinecraftClient.getInstance().player.sendMessage(Text.of("/pv " + (keyEvent.getKeycode() - 48)));
                         }
                     }
                 }

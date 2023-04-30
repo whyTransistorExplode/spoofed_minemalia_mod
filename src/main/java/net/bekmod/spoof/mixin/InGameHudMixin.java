@@ -2,6 +2,7 @@ package net.bekmod.spoof.mixin;
 
 
 import net.bekmod.spoof.screenOverlay.ScreenDrawing;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.hud.InGameHud;
 import net.minecraft.client.util.math.MatrixStack;
 import org.spongepowered.asm.mixin.Mixin;
@@ -20,13 +21,17 @@ public class InGameHudMixin {
 //    }
 
     @Inject(
-            at = {@At(value = "INVOKE",
+            at = @At(value = "INVOKE",
                     target = "Lcom/mojang/blaze3d/systems/RenderSystem;enableBlend()V",
-                    ordinal = 4)},
+                    remap = false,
+                    ordinal = 3),
             method = "render(Lnet/minecraft/client/util/math/MatrixStack;F)V")
     private void onRender(MatrixStack matrixStack, float partialTicks,
                           CallbackInfo ci)
     {
+        if(MinecraftClient.getInstance().options.debugEnabled)
+            return;
+
         ScreenDrawing.drawText(matrixStack);
     }
 

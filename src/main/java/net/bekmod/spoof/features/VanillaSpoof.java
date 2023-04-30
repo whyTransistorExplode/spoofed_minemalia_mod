@@ -8,16 +8,10 @@
 package net.bekmod.spoof.features;
 
 import io.netty.buffer.Unpooled;
-import net.bekmod.spoof.listener.ConnectionPacketOutputListener;
+import net.bekmod.spoof.events.ConnectionPacketOutputListener;
 import net.bekmod.spoof.mixin.CustomPayloadC2SPacketAccessor;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.network.packet.c2s.play.CustomPayloadC2SPacket;
-
-//import net.wurstclient.DontBlock;
-//import net.wurstclient.SearchTags;
-//import net.wurstclient.mixin.CustomPayloadC2SPacketAccessor;
-//import net.wurstclient.other_feature.OtherFeature;
-//import net.wurstclient.settings.CheckboxSetting;
 
 
 public final class VanillaSpoof {
@@ -31,11 +25,7 @@ public final class VanillaSpoof {
 
 	private VanillaSpoof()
 	{
-//		super("VanillaSpoof",
-//			"Bypasses anti-Fabric plugins by pretending to be a vanilla client.");
-//		addSetting(spoof);
-//
-//		EVENTS.add(ConnectionPacketOutputListener.class, this);
+
 	}
 	
 
@@ -61,22 +51,5 @@ public final class VanillaSpoof {
 		if(packet.getChannel().getNamespace().equals("fabric"))
 			event.cancel();
 	}
-	
-//	@Override
-//	public boolean isEnabled()
-//	{
-//		return spoof.isChecked();
-//	}
-//
-//	@Override
-//	public String getPrimaryAction()
-//	{
-//		return isEnabled() ? "Disable" : "Enable";
-//	}
-//
-//	@Override
-//	public void doPrimaryAction()
-//	{
-//		spoof.setChecked(!spoof.isChecked());
-//	}
+
 }
