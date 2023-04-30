@@ -16,6 +16,8 @@ public class SolveSolution {
     }
     private SolveSolution(){}
     public Solution groupTreeingIntoSolution(Solution solution) {
+
+        solution.getMarks().forEach(Mark::showYourself);
         changeNumbersIntoSolutions(solution);
 
         if (solution.getSignSizes() < 1)

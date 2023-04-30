@@ -2,73 +2,103 @@ package net.bekmod.spoof.gui;
 
 import io.github.cottonmc.cotton.gui.client.LightweightGuiDescription;
 import io.github.cottonmc.cotton.gui.widget.WButton;
+import io.github.cottonmc.cotton.gui.widget.WGridPanel;
 import io.github.cottonmc.cotton.gui.widget.WLabel;
-import io.github.cottonmc.cotton.gui.widget.WListPanel;
-import io.github.cottonmc.cotton.gui.widget.WPlainPanel;
+import io.github.cottonmc.cotton.gui.widget.WTextField;
 import net.bekmod.spoof.MainMod;
-import net.bekmod.spoof.entity.Envoy;
-import net.bekmod.spoof.gui.model.TargetModel;
-import net.bekmod.spoof.service.MessageProcess;
-import net.minecraft.client.MinecraftClient;
+import net.bekmod.spoof.entity.solutions.Result;
+import net.bekmod.spoof.service.MathHelper;
+import net.minecraft.text.LiteralText;
+import net.minecraft.text.Style;
 import net.minecraft.text.Text;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.function.BiConsumer;
+import net.minecraft.util.Formatting;
 
 public class SimpleGUI extends LightweightGuiDescription {
 
-    private WPlainPanel root;
+    private WGridPanel root;
     private WLabel info;
-    private WListPanel<Envoy, TargetModel> targetList;
     private WButton switchOverlayButton;
+
+    private WTextField inputFieldCost;
+    private WTextField inputFieldAmount;
+    private WTextField inputFieldFee;
+    private WButton calculate;
+    private WLabel solution;
+
+
+    private boolean isAnswer;
+    private String answer;
 
     private static SimpleGUI instance = null;
 
-    public static SimpleGUI getInstance(){
+    public static SimpleGUI getInstance() {
         if (instance == null) instance = new SimpleGUI();
         instance.refresh();
         return instance;
     }
 
-    private SimpleGUI(){
+    private SimpleGUI() {
+        root = new WGridPanel(20);
+        root.setSize(320, 240);
 
-        root = new WPlainPanel();
-        root.setSize(350, 250);
+        setRootPanel(root);
+
+        initialize();
+        registerItems();
+        setEvents();
+    }
+
+    private void initialize() {
         info = new WLabel(Text.of(""));
         info.setSize(200, 70);
-        root.add(info, 5, 5);
-        setRootPanel(root);
+
+        inputFieldCost = new WTextField();
+        inputFieldAmount = new WTextField();
+        inputFieldFee = new WTextField();
+        calculate = new WButton(new LiteralText("=").setStyle(Style.EMPTY.withBold(true)));
+        solution = new WLabel("");
 
         switchOverlayButton = new WButton();
 
-        root.add(switchOverlayButton, 120, 5, 80, 50);
-        setEvents();
     }
-    private void refresh(){
+
+    private void registerItems() {
+
+        root.add(info, 0, 0, 3, 1);
+        root.add(switchOverlayButton, 10, 1, 5, 1);
+
+        root.add(inputFieldCost  , 0,3, 3, 1);
+        root.add(inputFieldFee   , 4,3, 3, 1);
+        root.add(inputFieldAmount, 8,3, 3, 1);
+        root.add(calculate       , 11,3, 1, 1);
+        root.add(solution        , 12,3, 2, 1);
+    }
+
+    private void refresh() {
         info.setText(Text.of(MainMod.getInstance().getMessage()));
-        root.remove(targetList);
+        switchOverlayButton.setLabel(Text.of("switched: " + (MainMod.getInstance().isSwitchOverlay() ? "ON" : "OFF")));
 
-        switchOverlayButton.setLabel(Text.of("switched: " + (MainMod.getInstance().isSwitchOverlay()?"ON":"OFF")));
-
-        ArrayList<Envoy> envoys = MainMod.getInstance().getProximitedEnvoys();
-        if(envoys.size() > 0) {
-            BiConsumer<Envoy, TargetModel> consumer = (envoy, targetModel) -> {
-                targetModel.takeEnvoy(envoy);
-            };
-            envoys.sort(Comparator.comparingInt(Envoy::getProximity));
-            targetList = new WListPanel<>(envoys, TargetModel::new, consumer);
-
-            root.add(targetList, 5, 75, 150, 200);
-            targetList.layout();
-        }
+        if (isAnswer)
+            solution.setText(new LiteralText(" " + answer + "$").setStyle(Style.EMPTY.withColor(Formatting.GREEN).withBold(true)));
     }
 
-    private void setEvents(){
-        switchOverlayButton.setOnClick(() ->{
+    private void setEvents() {
+        switchOverlayButton.setOnClick(() -> {
             MainMod.getInstance().setSwitchOverlay();
             refresh();
+        });
+
+        calculate.setOnClick(()-> {
+           if (inputFieldFee.getText().length() > 0 && inputFieldAmount.getText().length() > 0){
+               String amount = inputFieldAmount.getText().length()>0?inputFieldAmount.getText():"1";
+               Result result = MathHelper.calculateText(
+                       "("+inputFieldFee.getText() +"+"+ inputFieldCost.getText() + ")*" + amount);
+               if(result.isSuccess()) {
+                   isAnswer = true;
+                   answer = String.valueOf(result.getNumber().getNumber());
+                   refresh();
+               }
+           }
         });
     }
 
