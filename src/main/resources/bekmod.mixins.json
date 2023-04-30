@@ -2,14 +2,14 @@
   "required": true,
   "minVersion": "0.8",
   "package": "net.bekmod.spoof.mixin",
-  "compatibilityLevel": "JAVA_17",
+  "compatibilityLevel": "JAVA_16",
   "mixins": [
   ],
   "client": [
-    "ClientPlayerEntityMixin",
     "ClientConnectionMixin",
     "CustomPayloadC2SPacketAccessor",
     "InGameHudMixin",
+    "KeyMixin",
     "GameMessageMixin"
   ],
   "injectors": {

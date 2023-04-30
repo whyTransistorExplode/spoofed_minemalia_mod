@@ -16,7 +16,6 @@ public class GameMessageMixin {
             method = "addMessage(Lnet/minecraft/text/Text;I)V",
             cancellable = false)
     public void onGameMessage(Text chatText, int chatLineId, CallbackInfo ci){
-        MessageProcess.processMessage(chatText);
-//        MainMod.getInstance().threadedProcessMessage(chatText);
+//        MessageProcess.processMessage(chatText);
     }
 }
