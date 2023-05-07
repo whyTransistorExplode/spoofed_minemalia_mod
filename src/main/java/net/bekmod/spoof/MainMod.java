@@ -7,6 +7,7 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class MainMod {
 
@@ -74,7 +75,7 @@ public class MainMod {
 
         isBuffedReaction = false;
         if (MinecraftClient.getInstance().player != null) {
-            MinecraftClient.getInstance().player.sendMessage(Text.of(buffedAnswer));
+            MainMod.getInstance().sendChatMessage(Text.of(buffedAnswer));
         }
     }
     public boolean isBuffedReaction(){
@@ -97,5 +98,20 @@ public class MainMod {
 
     public void switchMessageProc() {
         isMessageProcessorOn = !isMessageProcessorOn;
+    }
+
+
+    public void sendCommand(String text){
+        if (MinecraftClient.getInstance().player != null) {
+            if (text.startsWith("/"))
+            MinecraftClient.getInstance().player.networkHandler.sendChatCommand(text.substring(1));
+        }
+    }
+
+    public void sendChatMessage(Text text){
+
+        if (MinecraftClient.getInstance().player != null) {
+            MinecraftClient.getInstance().player.networkHandler.sendChatMessage(text.getString());
+        }
     }
 }
